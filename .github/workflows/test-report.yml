@@ -6,23 +6,19 @@ on:
       - feature/*
       - bugfix/*
       - hotfix/*
-      - development
+      - develop
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      environment: testing
+    secrets: inherit
   report-test:
     runs-on: ubuntu-latest
     name: Report Tests
     needs: build
     steps:
-      - name: List files
-        run: "ls -al"
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Build
-        uses: ./.github/workflows/build.yml
-        with:
-          environment: testing
-          secrets: inherit
       - name: Download test artifacts
         uses: actions/download-artifact@v4
         with:
