@@ -4,18 +4,17 @@ import (
 	"fmt"
 	"github.com/getsentry/sentry-go"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"log"
 	"os"
 )
 
 func SetupConfig() {
-	viper.SetConfigFile(".env")
-
-	// Read the configuration file
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("Error reading config file, %s", err)
-	}
+	//viper.SetConfigFile(".env")
+	//
+	//// Read the configuration file
+	//if err := viper.ReadInConfig(); err != nil {
+	//	log.Fatalf("Error reading config file, %s", err)
+	//}
 
 	// Set Gin mode based on the environment variable
 	env := os.Getenv("ENV")
