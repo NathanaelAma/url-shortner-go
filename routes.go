@@ -8,13 +8,16 @@ import (
 var db = make(map[string]string)
 
 func setupRouter() *gin.Engine {
-	// Disable Console Color
-	// gin.DisableConsoleColor()
 	r := gin.Default()
 
 	// Ping test
 	r.GET("/hello", func(c *gin.Context) {
 		c.String(http.StatusOK, "Hello World!")
+	})
+
+	r.GET("/world", func(c *gin.Context) {
+		params := c.Request.URL.Query()
+		c.String(http.StatusOK, params.Get("name"))
 	})
 
 	// Get user value
