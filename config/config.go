@@ -18,11 +18,9 @@ func SetupConfig() {
 	}
 
 	// Set Gin mode based on the environment variable
-	env := viper.GetString("ENV")
-	osEnv := os.Getenv("ENV")
+	env := os.Getenv("ENV")
 	fmt.Println("Running on", env)
-	fmt.Println("Running on", osEnv)
-	switch osEnv {
+	switch env {
 	case "development":
 		gin.SetMode(gin.DebugMode)
 	case "testing":
@@ -37,12 +35,7 @@ func SetupConfig() {
 }
 
 func SetupSentry() {
-	dsn := viper.GetString("SENTRY_DSN")
-	if dsn == "" {
-		fmt.Println("SENTRY_DSN is not set")
-		return
-	}
-	dsn = os.Getenv("SENTRY_DSN")
+	dsn := os.Getenv("SENTRY_DSN")
 	if err := sentry.Init(sentry.ClientOptions{
 		// get from viper otherwise fallback to os
 		Dsn:           dsn,

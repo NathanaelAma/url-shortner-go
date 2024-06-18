@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	sentrygin "github.com/getsentry/sentry-go/gin"
-	"github.com/spf13/viper"
+	"os"
 	"runtime"
 	"url-shortener/config"
 )
@@ -26,7 +26,7 @@ func StartServer() {
 	config.SetupSentry()
 	r := setupRouter()
 	r.Use(sentrygin.New(sentrygin.Options{}))
-	err := r.Run(":" + viper.GetString("PORT"))
+	err := r.Run(":" + os.Getenv("PORT"))
 	if err != nil {
 		return
 	}
