@@ -39,3 +39,14 @@ jobs:
           PORT: ${{ steps.doppler.outputs.PORT }}
           SENTRY_DSN: ${{ steps.doppler.outputs.SENTRY_DSN }}
         run: go build -v ./...
+      - name: Test Reports
+        run: mkdir coverage |
+          go test -coverprofile=coverage/cover.out
+      - if: ${{ inputs.environment == 'testing' }}
+        name: Archive Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: coverage/cover.out
+          retention-days: 5
+          if-no-files-found: warn
