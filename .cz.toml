@@ -2,6 +2,11 @@
 name = "cz_conventional_commits"
 tag_format = "v$version"
 version_scheme = "semver"
-version = "0.0.0"
+gpg_sign = true
+version = "0.1.1"
 update_changelog_on_bump = true
 major_version_zero = true
+version_files = [
+    "config/config.go",
+    "config.go:VersionString"
+]

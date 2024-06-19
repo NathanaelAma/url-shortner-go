@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-go build -o ./server .
+go build -tags netgo -ldflags '-s -w' -o app

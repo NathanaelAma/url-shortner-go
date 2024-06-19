@@ -6,15 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"os"
+	"runtime"
 )
 
+const VersionString = "v0.1.0"
+
 func SetupConfig() {
-	//viper.SetConfigFile(".env")
-	//
-	//// Read the configuration file
-	//if err := viper.ReadInConfig(); err != nil {
-	//	log.Fatalf("Error reading config file, %s", err)
-	//}
 
 	// Set Gin mode based on the environment variable
 	env := os.Getenv("ENV")
@@ -35,6 +32,8 @@ func SetupConfig() {
 
 func SetupSentry() {
 	dsn := os.Getenv("SENTRY_DSN")
+	env := os.Getenv("ENV")
+
 	if err := sentry.Init(sentry.ClientOptions{
 		// get from viper otherwise fallback to os
 		Dsn:           dsn,
@@ -43,7 +42,15 @@ func SetupSentry() {
 		// of transactions for performance monitoring.
 		// We recommend adjusting this value in production,
 		TracesSampleRate: 1.0,
+		Environment:      env,
+		Release:          VersionString,
 	}); err != nil {
 		fmt.Printf("Sentry initialization failed: %v\n", err)
 	}
+}
+
+func Runtime() {
+	nuCPU := runtime.NumCPU()
+	runtime.GOMAXPROCS(nuCPU)
+	fmt.Printf("Running with %d CPUs\n", nuCPU)
 }
