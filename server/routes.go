@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"github.com/gin-gonic/gin"
@@ -7,7 +7,7 @@ import (
 
 var db = make(map[string]string)
 
-func setupRouter() *gin.Engine {
+func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
 	// Ping test
@@ -15,7 +15,7 @@ func setupRouter() *gin.Engine {
 		c.String(http.StatusOK, "Hello World!")
 	})
 
-	r.GET("/world", func(c *gin.Context) {
+	r.GET("/shorten", func(c *gin.Context) {
 		params := c.Request.URL.Query()
 		c.String(http.StatusOK, params.Get("name"))
 	})
