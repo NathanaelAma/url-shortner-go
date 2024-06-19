@@ -2,29 +2,23 @@ package main
 
 import (
 	"fmt"
+	"github.com/NathanaelAma/url-shortener/config"
+	"github.com/NathanaelAma/url-shortener/server"
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"os"
-	"runtime"
-	"url-shortener/config"
 )
 
 func main() {
 
-	ConfigRuntime()
+	config.Runtime()
 	StartServer()
-}
-
-func ConfigRuntime() {
-	nuCPU := runtime.NumCPU()
-	runtime.GOMAXPROCS(nuCPU)
-	fmt.Printf("Running with %d CPUs\n", nuCPU)
 }
 
 func StartServer() {
 	fmt.Println("Starting server...")
 	config.SetupConfig()
 	config.SetupSentry()
-	r := setupRouter()
+	r := server.SetupRouter()
 	r.Use(sentrygin.New(sentrygin.Options{}))
 	err := r.Run(":" + os.Getenv("PORT"))
 	if err != nil {
