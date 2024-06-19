@@ -1,12 +1,6 @@
 name: Create Release
 
 on:
-  push:
-    tags:
-      - '*'
-    branches:
-      - main
-      - release/*
   pull_request:
     tags:
       - '*'
@@ -33,7 +27,6 @@ jobs:
       - name: Get latest tag
         id: getTag
         run: echo "GIT_TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-      - run: echo "SENTRY_LOG_LEVEL=debug" >> $GITHUB_ENV
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
