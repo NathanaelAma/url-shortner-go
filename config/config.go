@@ -9,6 +9,8 @@ import (
 	"runtime"
 )
 
+const VersionString = "v0.1.0"
+
 func SetupConfig() {
 
 	// Set Gin mode based on the environment variable
@@ -41,6 +43,7 @@ func SetupSentry() {
 		// We recommend adjusting this value in production,
 		TracesSampleRate: 1.0,
 		Environment:      env,
+		Release:          VersionString,
 	}); err != nil {
 		fmt.Printf("Sentry initialization failed: %v\n", err)
 	}
