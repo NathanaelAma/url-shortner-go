@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/NathanaelAma/url-shortener/internal"
 	"os"
+
+	"github.com/NathanaelAma/url-shortener/internal"
 
 	"github.com/NathanaelAma/url-shortener/config"
 )

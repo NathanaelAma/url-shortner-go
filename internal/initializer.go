@@ -2,9 +2,10 @@ package internal
 
 import (
 	"fmt"
+
 	"github.com/NathanaelAma/url-shortener/config"
 	"github.com/NathanaelAma/url-shortener/server"
-	"github.com/getsentry/sentry-go/gin"
+	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
 )
 
