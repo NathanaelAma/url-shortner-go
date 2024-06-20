@@ -12,8 +12,8 @@ func SetupRouter() *gin.Engine {
 	r.Static("/static", "./public/static")
 	r.Static("/css", "./public/css")
 
-	// Ping test
 	r.GET("/", controller.Index)
+	r.GET("/page2", controller.ShortenUrl)
 
 	return r
 }
