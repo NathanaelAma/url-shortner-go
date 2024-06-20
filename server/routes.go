@@ -1,16 +1,22 @@
 package server
 
 import (
+	"path/filepath"
+
 	"github.com/NathanaelAma/url-shortener/controller"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
+func SetupRouter(baseDir string) *gin.Engine {
 	r := gin.Default()
 
-	r.LoadHTMLGlob("./public/*.html")
-	r.Static("/static", "./public/static")
-	r.Static("/css", "./public/css")
+	templatesPath := filepath.Join(baseDir, "public/*.html")
+	staticPath := filepath.Join(baseDir, "public/static")
+	cssPath := filepath.Join(baseDir, "public/css")
+
+	r.LoadHTMLGlob(templatesPath)
+	r.Static("/static", staticPath)
+	r.Static("/css", cssPath)
 
 	r.GET("/", controller.Index)
 
