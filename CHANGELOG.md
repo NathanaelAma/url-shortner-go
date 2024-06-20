@@ -1,3 +1,21 @@
+## Unreleased
+
+### Feat
+
+- **config**: create initializer functions to seperate code to make more testable
+- **style**: add tailwindcss config to html pages and add 2nd page to test routing
+
+### Fix
+
+- **test**: fix path directory joining
+- **routes**: add health check route
+- **config**: enable cz to update version string
+- add version string to config
+
+### Refactor
+
+- **tests**: move tests into own folder
+
 ## v0.1.0 (2024-06-19)
 
 ### Feat
