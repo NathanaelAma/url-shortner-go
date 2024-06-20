@@ -1,9 +1,11 @@
-package main
+package test
 
 import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"path/filepath"
+	"runtime"
 	"testing"
 
 	"github.com/NathanaelAma/url-shortener/server"
@@ -16,8 +18,10 @@ func TestStartServer(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	t.Setenv("PORT", "8080")
+	_, currentFile, _, _ := runtime.Caller(0)
+	baseDir := filepath.Dir(filepath.Dir(currentFile))
 
-	router := server.SetupRouter("./")
+	router := server.SetupRouter(baseDir)
 	router.Use(sentrygin.New(sentrygin.Options{}))
 
 	w := httptest.NewRecorder()

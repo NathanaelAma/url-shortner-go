@@ -1,6 +1,7 @@
-package server
+package test
 
 import (
+	"github.com/NathanaelAma/url-shortener/server"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
@@ -18,7 +19,7 @@ func TestSetupRouter(t *testing.T) {
 	_, currentFile, _, _ := runtime.Caller(0)
 	baseDir := filepath.Dir(filepath.Dir(currentFile)) // Go up two directories from current file
 
-	router := SetupRouter(baseDir)
+	router := server.SetupRouter(baseDir)
 
 	assert.NotNil(t, router)
 
