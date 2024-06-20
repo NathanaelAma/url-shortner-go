@@ -23,19 +23,19 @@ func TestSetupRouter(t *testing.T) {
 	assert.NotNil(t, router)
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/", nil)
+	req, _ := http.NewRequest("GET", "/", http.NoBody)
 	router.ServeHTTP(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Contains(t, w.Body.String(), "Welcome to my URL Shortener")
 
 	w = httptest.NewRecorder()
-	req, _ = http.NewRequest("GET", "/page2", nil)
+	req, _ = http.NewRequest("GET", "/page2", http.NoBody)
 	router.ServeHTTP(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Contains(t, w.Body.String(), "Page 2")
 
 	w = httptest.NewRecorder()
-	req, _ = http.NewRequest("GET", "/health", nil)
+	req, _ = http.NewRequest("GET", "/health", http.NoBody)
 	router.ServeHTTP(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Contains(t, w.Body.String(), "UP")

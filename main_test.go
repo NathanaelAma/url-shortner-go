@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 
 	"github.com/NathanaelAma/url-shortener/server"
@@ -16,29 +15,20 @@ import (
 func TestStartServer(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
-	err := os.Setenv("PORT", "8080")
-	if err != nil {
-		return
-	}
-	defer func() {
-		err := os.Unsetenv("PORT")
-		if err != nil {
-
-		}
-	}()
+	t.Setenv("PORT", "8080")
 
 	router := server.SetupRouter("./")
 	router.Use(sentrygin.New(sentrygin.Options{}))
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/health", nil)
+	req, _ := http.NewRequest("GET", "/health", http.NoBody)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Equal(t, "application/json; charset=utf-8", w.Header().Get("Content-Type"))
 
 	var response map[string]string
-	err = json.Unmarshal(w.Body.Bytes(), &response)
+	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.Nil(t, err)
 	assert.Equal(t, "UP", response["status"])
 }
