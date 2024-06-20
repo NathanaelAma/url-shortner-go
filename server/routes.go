@@ -14,6 +14,7 @@ func SetupRouter() *gin.Engine {
 
 	// Ping test
 	r.GET("/", controller.Index)
+	r.GET("/health", controller.HealthCheck)
 
 	return r
 }
