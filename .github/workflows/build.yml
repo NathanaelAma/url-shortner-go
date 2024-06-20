@@ -42,7 +42,8 @@ jobs:
           PORT: ${{ steps.doppler.outputs.PORT }}
           SENTRY_DSN: ${{ steps.doppler.outputs.SENTRY_DSN }}
         run: go build -tags netgo -ldflags '-s -w' -o app
-      - name: Test Reports
+      - if: ${{ inputs.environment == 'testing' }}
+        name: Test Reports
         run: mkdir coverage |
           go test -coverprofile=coverage/cover.out
       - if: ${{ inputs.environment == 'testing' }}
