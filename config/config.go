@@ -2,14 +2,15 @@ package config
 
 import (
 	"fmt"
-	"github.com/getsentry/sentry-go"
-	"github.com/gin-gonic/gin"
 	"log"
 	"os"
 	"runtime"
+
+	"github.com/getsentry/sentry-go"
+	"github.com/gin-gonic/gin"
 )
 
-const VersionString = "v0.1.0"
+const VersionString = "0.1.0"
 
 func SetupConfig() {
 
