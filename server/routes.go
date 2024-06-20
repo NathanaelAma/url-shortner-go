@@ -13,7 +13,9 @@ func SetupRouter() *gin.Engine {
 	r.Static("/css", "./public/css")
 
 	r.GET("/", controller.Index)
+
 	r.GET("/page2", controller.ShortenUrl)
+	r.GET("/health", controller.HealthCheck)
 
 	return r
 }
