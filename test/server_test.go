@@ -18,7 +18,7 @@ func TestServerSetup(t *testing.T) {
 
 	r := internal.InitializeServer(baseDir)
 
-	req, _ := http.NewRequest("GET", "/", nil)
+	req, _ := http.NewRequest("GET", "/", http.NoBody)
 	resp := httptest.NewRecorder()
 	r.ServeHTTP(resp, req)
 
