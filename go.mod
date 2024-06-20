@@ -5,6 +5,7 @@ go 1.22
 require (
 	github.com/getsentry/sentry-go v0.28.1
 	github.com/gin-gonic/gin v1.10.0
+	github.com/stretchr/testify v1.9.0
 )
 
 require (
