@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func TestStartServer2(t *testing.T) {
+func TestStartServer(t *testing.T) {
 	port := "8081"
 	env := "test"
 
