@@ -8,9 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer(baseDir string, port string) {
+func StartServer(baseDir, port, env string) {
 	fmt.Println("Starting server...")
-	config.SetupConfig()
+	config.SetupConfig(env)
 	config.SetupSentry()
 	r := InitializeServer(baseDir)
 	err := r.Run(":" + port)

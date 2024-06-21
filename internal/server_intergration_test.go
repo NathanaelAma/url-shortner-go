@@ -1,7 +1,6 @@
-package test
+package internal
 
 import (
-	"github.com/NathanaelAma/url-shortener/internal"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"path/filepath"
@@ -13,16 +12,18 @@ import (
 
 func TestStartServer2(t *testing.T) {
 	port := "8081"
+	env := "test"
 
 	_, currentFile, _, _ := runtime.Caller(0)
 	baseDir := filepath.Dir(filepath.Dir(currentFile))
 
 	// Set environment variable for the test
 	t.Setenv("PORT", port)
+	t.Setenv("ENV", env)
 
 	// Run the server in a goroutine
 	go func() {
-		internal.StartServer(baseDir, port)
+		StartServer(baseDir, port, env)
 	}()
 
 	// Allow some time for the server to start

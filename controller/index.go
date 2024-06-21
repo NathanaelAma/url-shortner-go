@@ -12,10 +12,6 @@ func Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
 }
 
-func ShortenUrl(c *gin.Context) {
-	c.HTML(http.StatusOK, "page2.html", nil)
-}
-
 func HandleShortenUrl(c *gin.Context) {
 	var url model.Url
 

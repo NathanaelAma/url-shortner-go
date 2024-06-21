@@ -12,10 +12,9 @@ import (
 
 const VersionString = "0.1.0"
 
-func SetupConfig() {
+func SetupConfig(env string) string {
 
 	// Set Gin mode based on the environment variable
-	env := os.Getenv("ENV")
 	fmt.Println("Running on", env)
 	switch env {
 	case "development":
@@ -29,6 +28,7 @@ func SetupConfig() {
 	}
 
 	log.Printf("Gin mode set to %s", gin.Mode())
+	return gin.Mode()
 }
 
 func SetupSentry() {
