@@ -3,7 +3,7 @@ package internal
 import (
 	"fmt"
 	"github.com/NathanaelAma/url-shortener/config"
-	"github.com/NathanaelAma/url-shortener/server"
+	"github.com/NathanaelAma/url-shortener/routes"
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +20,7 @@ func StartServer(baseDir, port, env string) {
 }
 
 func InitializeServer(baseDir string) *gin.Engine {
-	r := server.SetupRouter(baseDir)
+	r := routes.SetupRouter(baseDir)
 	r.Use(sentrygin.New(sentrygin.Options{}))
 	return r
 }
