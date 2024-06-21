@@ -51,3 +51,14 @@ func TestHandleGetLongUrlReturns400WhenUrlNotFound(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, w.Code)
 	assert.Contains(t, w.Body.String(), "short URL not found")
 }
+
+func TestHealthCheckReturns200AndStatusUp(t *testing.T) {
+	w := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(w)
+	c.Request = httptest.NewRequest("GET", "/health", nil)
+
+	HealthCheck(c)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Contains(t, w.Body.String(), `{"status":"UP"}`)
+}

@@ -66,15 +66,19 @@ func TestGetLongUrl(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			url, err := ShortenUrl(model.Url{
-				Long: tt.want,
-			})
+			var url model.Url
+			var err error
+			if tt.args.shortUrl != "" {
+				url, err = ShortenUrl(model.Url{
+					Long: tt.want,
+				})
+			}
 			if err != nil {
 				return
 			}
-			got, err := GetLongUrl(url.Short)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetLongUrl() error = %v, wantErr %v", err, tt.wantErr)
+			got, errorMessage := GetLongUrl(url.Short)
+			if (errorMessage != nil) != tt.wantErr {
+				t.Errorf("GetLongUrl() error = %v, wantErr %v", errorMessage, tt.wantErr)
 				return
 			}
 			if got != tt.want {
