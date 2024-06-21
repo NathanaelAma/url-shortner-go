@@ -10,5 +10,5 @@ import (
 
 func main() {
 	config.Runtime()
-	internal.StartServer("./", os.Getenv("PORT"))
+	internal.StartServer("./", os.Getenv("PORT"), os.Getenv("ENV"))
 }

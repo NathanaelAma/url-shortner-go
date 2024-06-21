@@ -1,4 +1,4 @@
-package test
+package internal
 
 import (
 	"net/http"
@@ -9,8 +9,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
-
-	"github.com/NathanaelAma/url-shortener/internal"
 )
 
 func TestInitializeServer(t *testing.T) {
@@ -18,7 +16,7 @@ func TestInitializeServer(t *testing.T) {
 
 	_, currentFile, _, _ := runtime.Caller(0)
 	baseDir := filepath.Dir(filepath.Dir(currentFile))
-	r := internal.InitializeServer(baseDir)
+	r := InitializeServer(baseDir)
 
 	req, _ := http.NewRequest("GET", "/", http.NoBody)
 	resp := httptest.NewRecorder()

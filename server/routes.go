@@ -19,8 +19,9 @@ func SetupRouter(baseDir string) *gin.Engine {
 	r.Static("/css", cssPath)
 
 	r.GET("/", controller.Index)
+	r.PUT("/shorten", controller.HandleShortenUrl)
+	r.GET("/:shortUrl", controller.HandleGetLongUrl)
 
-	r.GET("/page2", controller.ShortenUrl)
 	r.GET("/health", controller.HealthCheck)
 
 	return r

@@ -1,7 +1,6 @@
-package test
+package server
 
 import (
-	"github.com/NathanaelAma/url-shortener/server"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
@@ -19,7 +18,7 @@ func TestSetupRouter(t *testing.T) {
 	_, currentFile, _, _ := runtime.Caller(0)
 	baseDir := filepath.Dir(filepath.Dir(currentFile)) // Go up two directories from current file
 
-	router := server.SetupRouter(baseDir)
+	router := SetupRouter(baseDir)
 
 	assert.NotNil(t, router)
 
@@ -28,12 +27,6 @@ func TestSetupRouter(t *testing.T) {
 	router.ServeHTTP(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Contains(t, w.Body.String(), "Welcome to my URL Shortener")
-
-	w = httptest.NewRecorder()
-	req, _ = http.NewRequest("GET", "/page2", http.NoBody)
-	router.ServeHTTP(w, req)
-	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Contains(t, w.Body.String(), "Page 2")
 
 	w = httptest.NewRecorder()
 	req, _ = http.NewRequest("GET", "/health", http.NoBody)

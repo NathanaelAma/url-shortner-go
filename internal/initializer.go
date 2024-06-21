@@ -2,16 +2,15 @@ package internal
 
 import (
 	"fmt"
-
 	"github.com/NathanaelAma/url-shortener/config"
 	"github.com/NathanaelAma/url-shortener/server"
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer(baseDir string, port string) {
+func StartServer(baseDir, port, env string) {
 	fmt.Println("Starting server...")
-	config.SetupConfig()
+	config.SetupConfig(env)
 	config.SetupSentry()
 	r := InitializeServer(baseDir)
 	err := r.Run(":" + port)
