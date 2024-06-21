@@ -7,15 +7,48 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--    TODO: install tailwind properly -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/output.css">
     <link rel="manifest" href="static/manifest.json">
     <link rel="icon" type="image/png" sizes="192x192" href="static/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="static/android-chrome-512x512.png">
     <link rel="icon" type="image/x-icon" href="static/favicon.ico">
 </head>
 <body>
-<h1 class="text-3xl font-bold">Welcome to my URL Shortener</h1>
+<header>
+    <nav class="bg-gray-800 p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-white text-2xl font-bold">URL Shortener</a>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container mx-auto p-6">
+        <div class="flex justify-center items-center">
+            <form action="/shorten" method="post" class="w-full max-w-lg">
+                <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
+                    <label for="url">Url</label><input type="url" name="url" id="url" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" placeholder="Enter your URL here" required>
+                    <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
+                        Shorten
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="flex justify-center items-center mt-6">
+            <div class="w-full max-w-lg">
+                <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
+                    <label for="shortened">Shorten</label><input type="text" name="shortened" id="shortened" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" placeholder="Shortened URL" readonly/>
+                    <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button" onclick="function copyToClipboard() {
+                        let copyText = document.getElementById('shortened');
+                        copyText.select();
+                        document.execCommand('copy');
+                    }
+                    copyToClipboard()">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>
