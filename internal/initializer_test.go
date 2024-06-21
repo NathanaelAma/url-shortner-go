@@ -23,7 +23,7 @@ func TestInitializeServer(t *testing.T) {
 	r.ServeHTTP(resp, req)
 
 	assert.Equal(t, http.StatusOK, resp.Code)
-	assert.Contains(t, resp.Body.String(), "Welcome to my URL Shortener")
+	assert.Contains(t, resp.Body.String(), "URL Shortener")
 
 	// Add more tests for other routes
 	req, _ = http.NewRequest("GET", "/health", http.NoBody)

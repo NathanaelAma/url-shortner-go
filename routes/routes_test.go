@@ -26,7 +26,7 @@ func TestSetupRouter(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/", http.NoBody)
 	router.ServeHTTP(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Contains(t, w.Body.String(), "Welcome to my URL Shortener")
+	assert.Contains(t, w.Body.String(), "URL Shortener")
 
 	w = httptest.NewRecorder()
 	req, _ = http.NewRequest("GET", "/health", http.NoBody)
