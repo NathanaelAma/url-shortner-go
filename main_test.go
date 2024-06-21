@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/NathanaelAma/url-shortener/server"
+	"github.com/NathanaelAma/url-shortener/routes"
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -17,7 +17,7 @@ func TestStartServer(t *testing.T) {
 
 	t.Setenv("PORT", "8080")
 
-	router := server.SetupRouter("./")
+	router := routes.SetupRouter("./")
 	router.Use(sentrygin.New(sentrygin.Options{}))
 
 	w := httptest.NewRecorder()
