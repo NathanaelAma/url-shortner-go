@@ -1,6 +1,9 @@
 package config
 
-import "testing"
+import (
+	"runtime"
+	"testing"
+)
 
 func TestSetupConfig(t *testing.T) {
 	type args struct {
@@ -46,5 +49,19 @@ func TestSetupConfig(t *testing.T) {
 				t.Errorf("SetupConfig() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func TestRuntimeSetsMaxProcsToNumCPU(t *testing.T) {
+	oldMaxProcs := runtime.GOMAXPROCS(0)
+	defer runtime.GOMAXPROCS(oldMaxProcs)
+
+	Runtime()
+
+	numCPU := runtime.NumCPU()
+	maxProcs := runtime.GOMAXPROCS(0)
+
+	if maxProcs != numCPU {
+		t.Errorf("Expected GOMAXPROCS to be set to %d, but got %d", numCPU, maxProcs)
 	}
 }

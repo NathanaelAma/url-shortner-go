@@ -27,7 +27,7 @@
             <form action="/shorten" method="post" class="w-full max-w-lg">
                 <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
                     <label for="url">Url</label><input type="url" name="url" id="url" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" placeholder="Enter your URL here" required>
-                    <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
+                    <button id="shorten-button" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
                         Shorten
                     </button>
                 </div>
@@ -37,18 +37,45 @@
             <div class="w-full max-w-lg">
                 <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
                     <label for="shortened">Shorten</label><input type="text" name="shortened" id="shortened" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" placeholder="Shortened URL" readonly/>
-                    <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button" onclick="function copyToClipboard() {
-                        let copyText = document.getElementById('shortened');
-                        copyText.select();
-                        document.execCommand('copy');
-                    }
-                    copyToClipboard()">
+                    <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button" onclick="copyToClipboard()">
                         Copy
                     </button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('shorten-button').addEventListener('click', function() {
+            const urlInput = document.getElementById('url').value;
+
+            fetch('/shorten', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    long: urlInput,
+                    short: ""
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.shortened_url) {
+                        document.getElementById('shortened').value = data.shortened_url;
+                    } else {
+                        alert('Error shortening URL');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        function copyToClipboard() {
+            const copyText = document.getElementById('shortened');
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand('copy');
+        }
+    </script>
 </main>
 </body>
 </html>
