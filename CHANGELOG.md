@@ -1,3 +1,14 @@
+## 0.3.0 (2024-06-28)
+
+### Feat
+
+- enable redirect of shortened url to long url
+
+### Fix
+
+- **html**: add script to html template to call api
+- **build**: update when tests run in workflows
+
 ## 0.2.0 (2024-06-21)
 
 ### Feat
