@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const VersionString = "0.2.0"
+const VersionString = "0.3.0"
 
 func SetupConfig(env string) string {
 
