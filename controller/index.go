@@ -1,8 +1,9 @@
 package controller
 
 import (
-	"github.com/NathanaelAma/url-shortener/service"
 	"net/http"
+
+	"github.com/NathanaelAma/url-shortener/service"
 
 	"github.com/NathanaelAma/url-shortener/model"
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,8 @@ func Index(c *gin.Context) {
 }
 
 func HandleShortenUrl(c *gin.Context) {
+	baseURL := "https://" + c.Request.Host
+
 	var url model.Url
 
 	if err := c.BindJSON(&url); err != nil {
@@ -26,6 +29,8 @@ func HandleShortenUrl(c *gin.Context) {
 		return
 	}
 
+	shortenedUrl.Short = baseURL + "/s/" + shortenedUrl.Short
+
 	c.JSON(http.StatusOK, gin.H{"shortened_url": shortenedUrl.Short})
 }
 
@@ -37,5 +42,5 @@ func HandleGetLongUrl(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"long_url": longUrl})
+	c.Redirect(http.StatusMovedPermanently, longUrl)
 }
